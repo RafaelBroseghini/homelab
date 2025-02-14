@@ -1,0 +1,57 @@
+- name: play
+  hosts: lab
+  become: True
+  become_user: root
+  tasks:
+  - name: ping
+    ansible.builtin.ping:
+
+  - name: install fzf
+    shell: |
+      wget https://github.com/junegunn/fzf/releases/download/v0.60.0/fzf-0.60.0-linux_arm64.tar.gz
+      tar -xzf fzf-0.60.0-linux_arm64.tar.gz
+      sudo mv fzf /usr/local/bin
+      rm fzf-0.60.0-linux_arm64.tar.gz
+      
+  - name: install zoxide
+    shell: |
+      curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+
+  - name: install rg
+    shell: |
+      sudo apt-get install ripgrep
+
+  - name: install ufw
+    shell: |
+      sudo apt install ufw
+      
+  - name: install argocd go
+    shell: |
+      wget https://go.dev/dl/go1.23.6.linux-arm64.tar.gz
+      rm -rf /usr/local/go
+      tar -C /usr/local -xzf go1.23.6.linux-arm64.tar.gz
+      rm go1.23.6.linux-arm64.tar.gz
+
+  - name: install argocd cli
+    shell: |
+      curl -sSL -o argocd-linux-arm64 https://github.com/argoproj/argo-cd/releases/download/v2.14.2/argocd-linux-arm64
+      sudo install -m 555 argocd-linux-arm64 /usr/local/bin/argocd
+      rm argocd-linux-arm64
+  
+  - name: copy update systemd service
+    copy:
+      src: units/update/monitor.service
+      dest: /etc/systemd/system/monitor.service
+
+  - name: copy update systemd timer
+    copy:
+      src: units/update/monitor.timer
+      dest: /etc/systemd/system/monitor.timer
+
+  - name: make sure monitor unit is running
+    systemd:
+      daemon_reload: true
+      name: monitor
+      state: restarted
+      enabled: True
+  

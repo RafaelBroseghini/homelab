@@ -1,0 +1,13 @@
+[Unit]
+Description=Updates, Upgrades, Cleans, Removes packages
+Wants=monitor.timer
+
+[Service]
+Type=oneshot
+ExecStart=apt-get update
+ExecStart=apt-get upgrade -y
+ExecStart=apt-get autoclean -y
+ExecStart=apt-get autoremove -y
+
+[Install]
+WantedBy=multi-user.target
