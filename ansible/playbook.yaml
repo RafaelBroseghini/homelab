@@ -6,6 +6,11 @@
   - name: ping
     ansible.builtin.ping:
 
+  - name: update, upgrade, remove, clean
+    shell: |
+      sudo apt update -y
+      sudo apt full-upgrade -y
+
   - name: install fzf
     shell: |
       wget https://github.com/junegunn/fzf/releases/download/v0.60.0/fzf-0.60.0-linux_arm64.tar.gz
@@ -25,7 +30,7 @@
     shell: |
       sudo apt install ufw
       
-  - name: install argocd go
+  - name: install go
     shell: |
       wget https://go.dev/dl/go1.23.6.linux-arm64.tar.gz
       rm -rf /usr/local/go
