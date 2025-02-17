@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm
+  labels:
+    app.kubernetes.io/name: argocd-cm
+    app.kubernetes.io/part-of: argocd
+data:
+  kustomize.buildOptions: --enable-helm
+  accounts.operator: login
+  admin.enabled: "true"
+  application.resourceTrackingMethod: annotation
+  resource.ignoreResourceUpdatesEnabled: "true"
+  resource.customizations.ignoreResourceUpdates.all: |
+    jsonPointers:
+    - /metadata/resourceVersion
+    - /status
+  resource.customizations.ignoreResourceUpdates.argoproj.io_Application: |
+    jsonPointers:
+    - /metadata/ownerReferences
+    - /status
+    - /metadata/ownerReferences
+    - /status/reconciledAt
+    jqPathExpressions:
+    - .status.conditions[].lastTransitionTime
