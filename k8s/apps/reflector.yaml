@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  name: reflector
+  namespace: argocd
+spec:
+  destination:
+    namespace: reflector
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: k8s/config/reflector
+    repoURL: https://github.com/rafaelbroseghini/homelab.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
