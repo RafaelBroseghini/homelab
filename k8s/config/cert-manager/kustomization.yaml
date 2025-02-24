@@ -1,0 +1,11 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+helmChartInflationGenerator:
+  - chartName: cert-manager
+    chartRepoUrl: https://charts.jetstack.io
+    chartVersion: v1.14.5
+    releaseName: cert-manager
+    values: values.yaml
+
+# run: kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.14.5/cert-manager.crds.yaml
