@@ -6,7 +6,7 @@ metadata:
   namespace: argocd
 spec:
   entryPoints:
-    - web
+    - websecure
   routes:
     - kind: Rule
       match: PathPrefix(`/argocd`) && Headers(`Content-Type`, `application/grpc`)
@@ -21,3 +21,5 @@ spec:
       services:
         - name: argocd-server
           port: 80
+  tls:
+    secretName: rafaelbroseghini-cert
