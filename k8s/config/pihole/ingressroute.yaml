@@ -1,0 +1,36 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: pihole
+  namespace: pihole
+spec:
+  entryPoints:
+    - web
+  routes:
+    - kind: Rule
+      match: Host(`pihole.rafaelbroseghini.com`)
+      services:
+      - name: pihole
+        port: 80
+      middlewares:
+      - name: redirectscheme
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: pihole-https
+  namespace: pihole
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`pihole.rafaelbroseghini.com`)
+      services:
+      - name: pihole
+        port: 443
+      middlewares:
+      - name: redirectscheme-https
+  tls:
+    secretName: rafaelbroseghini-cert

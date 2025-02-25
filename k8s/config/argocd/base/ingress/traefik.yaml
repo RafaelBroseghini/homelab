@@ -9,7 +9,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: PathPrefix(`/argocd`) && Headers(`Content-Type`, `application/grpc`)
+      match: Host(`argocd.rafaelbroseghini.com`) && PathPrefix(`/argocd`) && Headers(`Content-Type`, `application/grpc`)
       priority: 11
       services:
         - name: argocd-server
