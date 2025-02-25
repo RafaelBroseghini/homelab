@@ -16,7 +16,7 @@ spec:
           port: 80
           scheme: h2c
     - kind: Rule
-      match: PathPrefix(`/argocd`)
+      match: Host(`argocd.rafaelbroseghini.com`) && PathPrefix(`/argocd`)
       priority: 10
       services:
         - name: argocd-server
