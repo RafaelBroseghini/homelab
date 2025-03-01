@@ -9,6 +9,7 @@ data:
   kustomize.buildOptions: --enable-helm
   accounts.operator: login
   admin.enabled: "true"
+  accounts.homepage: apiKey
   application.resourceTrackingMethod: annotation
   resource.ignoreResourceUpdatesEnabled: "true"
   resource.customizations.ignoreResourceUpdates.all: |
