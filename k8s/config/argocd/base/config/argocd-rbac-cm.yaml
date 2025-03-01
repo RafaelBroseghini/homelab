@@ -8,5 +8,5 @@ metadata:
 data:
   policy.default: role:admin
   policy.csv: |
-    "g, homepage, role:readonly"
-    "g, operator, role:readonly"
+    g, homepage, role:readonly
+    g, operator, role:readonly
