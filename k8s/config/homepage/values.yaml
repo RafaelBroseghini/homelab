@@ -1,0 +1,113 @@
+image:
+  tag: v0.10.9
+
+config:
+  bookmarks:
+  services:
+    - Dashboards:
+      - Traefik:
+          icon: traefik.png
+          href: https://dashboard.rafaelbroseghini.com/dashboard/
+          siteMonitor: https://dashboard.rafaelbroseghini.com/dashboard/
+      - Pihole:
+          icon: pi-hole.png
+          href: http://pihole.rafaelbroseghini.com
+          siteMonitor: http://pihole.rafaelbroseghini.com
+      - ArgoCD:
+          icon: argo-cd.png
+          href: https://argocd.rafaelbroseghini.com/argocd
+          siteMonitor: https://argocd.rafaelbroseghini.com/argocd
+    - Services:
+      - pihole:
+          href: http://pihole.rafaelbroseghini.com
+          icon: pi-hole.png
+          widget:
+            type: pihole
+            fields: ["queries", "blocked", "blocked_percent", "gravity"]
+            url: http://pihole.rafaelbroseghini.com
+            version: 6
+      - argocd:
+          icon: argo-cd.png
+          href: https://argocd.rafaelbroseghini.com/argocd
+          widget:
+            type: argocd
+            url: https://argocd.rafaelbroseghini.com/argocd
+            key: "{{HOMEPAGE_VAR_ARGOCD_KEY}}"
+  widgets:
+    - greeting:
+        text_size: xl
+        text: pi
+    - resources:
+        cpu: true
+        memory: true
+        cputemp: true
+        tempmin: 0 # optional, minimum cpu temp
+        tempmax: 100 # optional, maximum cpu temp
+        uptime: true
+        units: metric # only used by cpu temp, options: 'imperial' or 'metric'
+        refresh: 3000 # optional, in ms
+        network: true # optional, uses 'default' if true or specify a network inter
+    - datetime:
+        text_size: xl
+        format:
+          dateStyle: short
+          timeStyle: short
+          hour12: true
+    - kubernetes:
+        cluster:
+          show: true
+          cpu: true
+          memory: true
+          showLabel: true
+          label: "cluster"
+        # nodes:
+        #   show: true
+        #   cpu: true
+        #   memory: true
+        #   showLabel: true
+  kubernetes:
+    mode: cluster
+  settings:
+    background:
+      image: https://images.unsplash.com/photo-1483729558449-99ef09a8c325?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+      blur: md # sm, "", md, xl... see https://tailwindcss.com/docs/backdrop-blur
+      saturate: 80 # 0, 50, 100... see https://tailwindcss.com/docs/backdrop-saturate
+      brightness: 80 # 0, 50, 75... see https://tailwindcss.com/docs/backdrop-brightness
+      opacity: 80 # 0-100
+    layout:
+      Dashboards:
+        style: row
+        columns: 2
+      Services:
+        style: row
+        columns: 2
+# The service account is necessary to allow discovery of other services
+serviceAccount:
+  create: true
+  name: homepage
+
+# This enables the service account to access the necessary resources
+enableRbac: true
+
+# ingress:
+#   main:
+#     enabled: true
+#     annotations:
+#       # Example annotations to add Homepage to your Homepage!
+#       gethomepage.dev/enabled: "true"
+#       gethomepage.dev/name: "Homepage"
+#       gethomepage.dev/description: "Dynamically Detected Homepage"
+#       gethomepage.dev/group: "Dynamic"
+#       gethomepage.dev/icon: "homepage.png"
+#     hosts:
+#       - host: homepage.example.com
+#         paths:
+#           - path: /
+#             pathType: Prefix
+
+env:
+- name: HOMEPAGE_VAR_ARGOCD_KEY # homepage user created via argocd-rbac-cm
+  valueFrom:
+    secretKeyRef:
+      name: argocd-user
+      key: key
