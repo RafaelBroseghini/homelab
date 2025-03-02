@@ -98,6 +98,7 @@ config:
           app: argocd-dex-server
           cpu: true
           memory: true
+          showStats: true
     - k8s:
       - cert-manager:
           icon: cert-manager.png
