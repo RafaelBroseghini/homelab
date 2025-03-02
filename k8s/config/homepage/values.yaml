@@ -18,7 +18,16 @@ config:
           href: https://argocd.rafaelbroseghini.com/argocd
           siteMonitor: https://argocd.rafaelbroseghini.com/argocd
     - Services:
+      - argocd:
+          description: continuous delivery made easy
+          icon: argo-cd.png
+          href: https://argocd.rafaelbroseghini.com/argocd
+          widget:
+            type: argocd
+            url: https://argocd.rafaelbroseghini.com/argocd
+            key: "{{HOMEPAGE_VAR_ARGOCD_KEY}}"
       - pihole:
+          description: adblocking
           href: http://pihole.rafaelbroseghini.com
           icon: pi-hole.png
           widget:
@@ -26,40 +35,62 @@ config:
             fields: ["queries", "blocked", "blocked_percent", "gravity"]
             url: http://pihole.rafaelbroseghini.com
             version: 6
+      - traefik:
+          description: reverse proxy to homelab
+          icon: traefik.png
+          href: https://dashboard.rafaelbroseghini.com/dashboard/
+          widget:
+            type: traefik
+            url: https://dashboard.rafaelbroseghini.com
+    - Kubernetes:
       - argocd:
           icon: argo-cd.png
-          href: https://argocd.rafaelbroseghini.com/argocd
-          widget:
-            type: argocd
-            url: https://argocd.rafaelbroseghini.com/argocd
-            key: "{{HOMEPAGE_VAR_ARGOCD_KEY}}"
+          description: cd made easy
+          namespace: argocd
+          app: argocd-server
+          cpu: true
+          memory: true
+          showStats: true
+      - cert-manager:
+          icon: cert-manager.png
+          description: takes care of my certs
+          namespace: cert-manager
+          app: cert-manager
+          cpu: true
+          memory: true
+          showStats: true
+      - reflector:
+          icon: kubernetes.png
+          description: reflect secrets across ns
+          namespace: reflector
+          app: reflector
+          cpu: true
+          memory: true
+          showStats: true
   widgets:
-    - greeting:
-        text_size: xl
-        text: pi
     - resources:
         cpu: true
         memory: true
         cputemp: true
-        tempmin: 0 # optional, minimum cpu temp
-        tempmax: 100 # optional, maximum cpu temp
+        tempmin: 0
+        tempmax: 100
         uptime: true
-        units: metric # only used by cpu temp, options: 'imperial' or 'metric'
-        refresh: 3000 # optional, in ms
-        network: true # optional, uses 'default' if true or specify a network inter
+        units: metric
+        refresh: 5000
+        network: true
     - datetime:
         text_size: xl
         format:
           dateStyle: short
           timeStyle: short
           hour12: true
-    - kubernetes:
-        cluster:
-          show: true
-          cpu: true
-          memory: true
-          showLabel: true
-          label: "cluster"
+    # - kubernetes:
+    #     cluster:
+    #       show: true
+    #       cpu: true
+    #       memory: true
+    #       showLabel: true
+    #       label: "cluster"
         # nodes:
         #   show: true
         #   cpu: true
@@ -68,6 +99,8 @@ config:
   kubernetes:
     mode: cluster
   settings:
+    theme: dark
+    title: Homelab
     background:
       image: https://images.unsplash.com/photo-1483729558449-99ef09a8c325?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
       blur: md # sm, "", md, xl... see https://tailwindcss.com/docs/backdrop-blur
@@ -77,8 +110,11 @@ config:
     layout:
       Dashboards:
         style: row
-        columns: 2
+        columns: 3
       Services:
+        style: row
+        columns: 2
+      Kubernetes:
         style: row
         columns: 2
 # The service account is necessary to allow discovery of other services
