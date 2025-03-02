@@ -42,15 +42,63 @@ config:
           widget:
             type: traefik
             url: https://dashboard.rafaelbroseghini.com
-    - Kubernetes:
-      - argocd:
+    - ArgoCD:
+      - argocd-server:
           icon: argo-cd.png
-          description: cd made easy
+          description: argo cd server
           namespace: argocd
           app: argocd-server
           cpu: true
           memory: true
           showStats: true
+      - argocd-repo-server:
+          icon: argo-cd.png
+          description: argo cd repo server
+          namespace: argocd
+          app: argocd-repo-server
+          cpu: true
+          memory: true
+          showStats: true
+      - argocd-redis:
+          icon: argo-cd.png
+          description: argo cd redis
+          namespace: argocd
+          app: argocd-redis
+          cpu: true
+          memory: true
+          showStats: true
+      - argocd-application-controller:
+          icon: argo-cd.png
+          description: argo cd application controller
+          namespace: argocd
+          app: argocd-application-controller
+          cpu: true
+          memory: true
+          showStats: true
+      - argocd-applicationset-controller:
+          icon: argo-cd.png
+          description: argo cd applicationset controller
+          namespace: argocd
+          app: argocd-applicationset-controller
+          cpu: true
+          memory: true
+          showStats: true
+      - argocd-notifications-controller:
+          icon: argo-cd.png
+          description: argo cd notifications controller
+          namespace: argocd
+          app: argocd-notifications-controller
+          cpu: true
+          memory: true
+          showStats: true
+      - argocd-dex-server:
+          icon: argo-cd.png
+          description: argo cd dex server
+          namespace: argocd
+          app: argocd-dex-server
+          cpu: true
+          memory: true
+    - k8s:
       - cert-manager:
           icon: cert-manager.png
           description: takes care of my certs
@@ -147,3 +195,11 @@ env:
     secretKeyRef:
       name: argocd-user
       key: key
+
+resources:
+  requests:
+    memory: 10Mi
+    cpu: 10m
+  limits:
+    memory: 250Mi
+    cpu: 50m
