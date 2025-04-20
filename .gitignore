@@ -1,3 +1,6 @@
 # ignore folder
 ignore/
 charts/
+
+.env
+.secrets

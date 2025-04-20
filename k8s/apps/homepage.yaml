@@ -14,9 +14,9 @@ spec:
     path: k8s/config/homepage
     repoURL: https://github.com/rafaelbroseghini/homelab.git
     targetRevision: HEAD
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+  syncPolicy: {}
+    # automated:
+    #   prune: true
+    #   selfHeal: true
     syncOptions:
       - CreateNamespace=true

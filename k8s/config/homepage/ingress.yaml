@@ -18,3 +18,23 @@ spec:
           port: 3000
   tls:
     secretName: rafaelbroseghini-cert
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: feed
+  namespace: feed
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/name: Feed
+spec:
+  entryPoints:
+    - web
+  routes:
+    - kind: Rule
+      match: Host(`feed.rafaelbroseghini.com`)
+      services:
+        - name: feed
+          port: 8080
+  tls:
+    secretName: rafaelbroseghini-cert
