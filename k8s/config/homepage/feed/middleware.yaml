@@ -5,5 +5,5 @@ metadata:
   namespace: homepage
 spec:
   redirectScheme:
-    port: "8080"
+    port: "8000"
     scheme: http

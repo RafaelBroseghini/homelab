@@ -14,6 +14,6 @@ spec:
       match: Host(`feed.rafaelbroseghini.com`)
       services:
         - name: feed
-          port: 8080
+          port: 8000
       middlewares:
       - name: redirectscheme-http
