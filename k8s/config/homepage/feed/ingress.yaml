@@ -17,5 +17,3 @@ spec:
           port: 8080
       middlewares:
       - name: redirectscheme-http
-  tls:
-    secretName: rafaelbroseghini-cert
