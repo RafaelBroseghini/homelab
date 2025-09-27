@@ -5,8 +5,3 @@ metadata:
   labels:
     app.kubernetes.io/name: argocd-rbac-cm
     app.kubernetes.io/part-of: argocd
-data:
-  policy.default: role:admin
-  policy.csv: |
-    g, homepage, role:readonly
-    g, operator, role:readonly
