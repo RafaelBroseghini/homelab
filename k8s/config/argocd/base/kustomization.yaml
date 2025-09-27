@@ -8,6 +8,8 @@ images:
 resources:
 - ./application-controller
 - ./repo-server
+- ./dex
+- ./notification
 - ./server
 - ./config
 - ./redis
