@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   labels:
     app.kubernetes.io/name: argocd-application-controller
@@ -10,7 +10,6 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: argocd-application-controller
-  serviceName: argocd-application-controller
   replicas: 1
   template:
     metadata:
@@ -26,8 +25,6 @@ spec:
             secretKeyRef:
               key: auth
               name: argocd-redis
-        - name: ARGOCD_CONTROLLER_REPLICAS
-          value: "1"
         - name: ARGOCD_RECONCILIATION_TIMEOUT
           valueFrom:
             configMapKeyRef:
@@ -202,12 +199,6 @@ spec:
               name: argocd-cmd-params-cm
               key: otlp.headers
               optional: true
-        - name: ARGOCD_APPLICATION_CONTROLLER_OTLP_ATTRS
-          valueFrom:
-            configMapKeyRef:
-              name: argocd-cmd-params-cm
-              key: otlp.attrs
-              optional: true
         - name: ARGOCD_APPLICATION_NAMESPACES
           valueFrom:
             configMapKeyRef:
@@ -244,12 +235,6 @@ spec:
               name: argocd-cmd-params-cm
               key: controller.diff.server.side
               optional: true
-        - name: ARGOCD_IGNORE_NORMALIZER_JQ_TIMEOUT
-          valueFrom:
-            configMapKeyRef:
-              name: argocd-cmd-params-cm
-              key: controller.ignore.normalizer.jq.timeout
-              optional: true
         - name: ARGOCD_HYDRATOR_ENABLED
           valueFrom:
             configMapKeyRef:
@@ -274,8 +259,6 @@ spec:
               name: argocd-cmd-params-cm
               key: commit.server
               optional: true
-        - name: KUBECACHEDIR
-          value: /tmp/kubecache
         image: quay.io/argoproj/argocd:latest
         imagePullPolicy: Always
         name: argocd-application-controller
@@ -304,8 +287,6 @@ spec:
           mountPath: /home/argocd
         - name: argocd-cmd-params-cm
           mountPath: /home/argocd/params
-        - name: argocd-application-controller-tmp
-          mountPath: /tmp
       serviceAccountName: argocd-application-controller
       affinity:
         podAntiAffinity:
@@ -325,8 +306,6 @@ spec:
       volumes:
       - emptyDir: {}
         name: argocd-home
-      - emptyDir: {}
-        name: argocd-application-controller-tmp
       - name: argocd-repo-server-tls
         secret:
           secretName: argocd-repo-server-tls
@@ -343,7 +322,7 @@ spec:
           optional: true
           name: argocd-cmd-params-cm
           items:
-            - key: controller.profile.enabled
-              path: profiler.enabled
+          - key: controller.profile.enabled
+            path: profiler.enabled
       nodeSelector:
         kubernetes.io/os: linux
