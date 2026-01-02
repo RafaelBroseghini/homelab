@@ -116,6 +116,23 @@ config:
           cpu: true
           memory: true
           showStats: true
+    - monitoring:
+      - prometheus:
+          icon: prometheus.png
+          description: prometheus
+          namespace: monitoring
+          app: prometheus
+          cpu: true
+          memory: true
+          showStats: true
+      - grafana:
+          icon: grafana.png
+          description: grafana
+          namespace: monitoring
+          app: grafana
+          cpu: true
+          memory: true
+          showStats: true
   widgets:
     - resources:
         cpu: true
