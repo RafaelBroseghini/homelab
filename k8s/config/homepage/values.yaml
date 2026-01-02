@@ -28,12 +28,12 @@ config:
             key: "{{HOMEPAGE_VAR_ARGOCD_KEY}}"
       - pihole:
           description: adblocking
-          href: http://pihole.rafaelbroseghini.com
+          href: http://pihole.rafaelbroseghini.com:8880
           icon: pi-hole.png
           widget:
             type: pihole
             fields: ["queries", "blocked", "blocked_percent", "gravity"]
-            url: http://pihole.rafaelbroseghini.com
+            url: http://pihole.rafaelbroseghini.com:8880
             version: 6
       - traefik:
           description: reverse proxy to homelab
