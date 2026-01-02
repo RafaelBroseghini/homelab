@@ -1,0 +1,17 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: monitoring
+  namespace: monitoring
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`grafana.rafaelbroseghini.com`)
+      services:
+        - name: monitoring-grafana
+          port: 80
+  tls:
+    secretName: rafaelbroseghini-cert
