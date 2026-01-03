@@ -14,7 +14,14 @@ spec:
     path: k8s/config/monitoring
     repoURL: https://github.com/rafaelbroseghini/homelab.git
     targetRevision: HEAD
+  ignoreDifferences:
+    - kind: Secret
+      name: monitoring-grafana
+      namespace: monitoring
+      jsonPointers:
+        - /data
   syncPolicy:
     syncOptions:
     - CreateNamespace=true
+    - RespectIgnoreDifferences=true
     automated:
