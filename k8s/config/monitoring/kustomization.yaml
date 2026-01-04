@@ -66,6 +66,6 @@ patchesJson6902:
         path: "/metadata/annotations/argocd.argoproj.io~1sync-options"
         value: "Replace=true"
 
-
 resources:
+  - monitors/
   - ingress.yaml
