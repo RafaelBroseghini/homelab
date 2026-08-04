@@ -5,6 +5,15 @@ This is a collection of config manifests for my homelab.
 > [!IMPORTANT]
 > This repository will likely always be a work in progress and some components may not be immediately integrated.
 
+## Documentation
+
+| Area | README |
+|------|--------|
+| Kubernetes / GitOps | [`k8s/README.md`](./k8s/README.md) |
+| ArgoCD app-of-apps | [`k8s/apps/README.md`](./k8s/apps/README.md) |
+| Component configs | [`k8s/config/README.md`](./k8s/config/README.md) |
+| Host bootstrap | [`ansible/README.md`](./ansible/README.md) |
+
 # Hardware
 
 1. HP EliteDesk 800 G2 Mini 35W Desktop i5-6500T@2.5GHz 16G DDR4 256G SSD WiFi
