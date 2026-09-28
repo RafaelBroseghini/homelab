@@ -12,7 +12,7 @@ ArgoCD deployment via Kustomize, vendored from upstream manifests with local pat
 
 | File | What it does |
 |------|--------------|
-| `base/kustomization.yaml` | Pins image to `v3.5.0-rc1`; dex and notifications controllers are commented out |
+| `base/kustomization.yaml` | Pins image to `v3.6.0-rc1`; dex and notifications controllers are commented out |
 | `base/config/argocd-cm.yaml` | Enables `--enable-helm` for Kustomize builds; defines `accounts.homepage` API key account |
 | `base/config/argocd-cmd-params-cm.yaml` | Root path `/argocd`, insecure server mode |
 | `base/ingress/traefik.yaml` | gRPC route (priority 11) + HTTP route for the UI |
