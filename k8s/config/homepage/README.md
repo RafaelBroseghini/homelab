@@ -5,8 +5,8 @@
 ## Access
 
 - URL: `https://homepage.rafaelbroseghini.com`
-- Chart: `homepage` v2.0.1 from `jameswynn.github.io/helm-charts`
-- Image pinned to `v0.10.9` in `values.yaml`
+- Chart: `homepage` v2.1.0 from `jameswynn.github.io/helm-charts`
+- Image: `v2.4.0` (`image.tag` in `values.yaml`). Chart 2.1.0 defaults to appVersion `v1.2.0`; the tag override is what deploys v2.4.0.
 
 ## ArgoCD sync policy
 
