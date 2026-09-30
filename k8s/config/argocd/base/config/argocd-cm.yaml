@@ -6,6 +6,7 @@ metadata:
     app.kubernetes.io/name: argocd-cm
     app.kubernetes.io/part-of: argocd
 data:
+  url: https://argocd.rafaelbroseghini.com
   kustomize.buildOptions: --enable-helm
   accounts.operator: login
   admin.enabled: "true"
