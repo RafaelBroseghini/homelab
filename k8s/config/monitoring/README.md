@@ -5,7 +5,7 @@ Prometheus + Grafana via [kube-prometheus-stack](https://github.com/prometheus-c
 ## Access
 
 - Grafana: `https://grafana.rafaelbroseghini.com`
-- Chart: `kube-prometheus-stack` v80.9.2
+- Chart: `kube-prometheus-stack` v80.14.4 (80.x line only; 81.x and 91.x are deferred)
 
 ## Notable settings
 
