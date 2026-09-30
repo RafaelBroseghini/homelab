@@ -15,16 +15,16 @@ config:
           siteMonitor: http://pihole.rafaelbroseghini.com:8880
       - ArgoCD:
           icon: argo-cd.png
-          href: https://argocd.rafaelbroseghini.com/argocd
-          siteMonitor: https://argocd.rafaelbroseghini.com/argocd
+          href: https://argocd.rafaelbroseghini.com
+          siteMonitor: https://argocd.rafaelbroseghini.com
     - Services:
       - argocd:
           description: continuous delivery made easy
           icon: argo-cd.png
-          href: https://argocd.rafaelbroseghini.com/argocd
+          href: https://argocd.rafaelbroseghini.com
           widget:
             type: argocd
-            url: https://argocd.rafaelbroseghini.com/argocd
+            url: https://argocd.rafaelbroseghini.com
             key: "{{HOMEPAGE_VAR_ARGOCD_KEY}}"
       - pihole:
           description: adblocking

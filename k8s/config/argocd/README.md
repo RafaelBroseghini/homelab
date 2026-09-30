@@ -4,8 +4,8 @@ ArgoCD deployment via Kustomize, vendored from upstream manifests with local pat
 
 ## Access
 
-- URL: `https://argocd.rafaelbroseghini.com/argocd`
-- Served behind Traefik at subpath `/argocd` (see `base/config/argocd-cmd-params-cm.yaml`)
+- URL: `https://argocd.rafaelbroseghini.com` (root path on dedicated host)
+- `argocd-cm` `url` must match the public URL for redirects and links
 - `server.insecure: "true"` — TLS terminates at Traefik, not the ArgoCD server pod
 
 ## Notable customizations
@@ -14,8 +14,8 @@ ArgoCD deployment via Kustomize, vendored from upstream manifests with local pat
 |------|--------------|
 | `base/kustomization.yaml` | Pins image to `v3.6.0-rc1`; dex and notifications controllers are commented out |
 | `base/config/argocd-cm.yaml` | Enables `--enable-helm` for Kustomize builds; defines `accounts.homepage` API key account |
-| `base/config/argocd-cmd-params-cm.yaml` | Root path `/argocd`, insecure server mode |
-| `base/ingress/traefik.yaml` | gRPC route (priority 11) + HTTP route for the UI |
+| `base/config/argocd-cmd-params-cm.yaml` | Insecure server mode (TLS at Traefik) |
+| `base/ingress/traefik.yaml` | Host-based Traefik v3 routes (HTTP + gRPC/h2c) |
 
 ## Homepage integration
 
