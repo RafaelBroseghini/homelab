@@ -21,7 +21,9 @@ Allowed target namespaces are declared on the Certificate in [`../cert-manager/c
 
 ## Chart
 
-- `reflector` v9.0.313 from `emberstack.github.io/helm-charts`
+- `reflector` v10.0.65 from `emberstack.github.io/helm-charts`
+- No values file — the controller image tag follows the chart version
+- Certificate reflection annotations are unchanged (`reflector.v1.k8s.emberstack.com/*`)
 
 ## Local build
 
