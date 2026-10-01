@@ -10,13 +10,15 @@ spec:
   routes:
     - kind: Rule
       match: Host(`argocd.rafaelbroseghini.com`)
-      priority: 10
+      # Must stay above Helm's default Traefik dashboard rule
+      # (PathPrefix(`/dashboard`) || PathPrefix(`/api`), length ~48, often no Host).
+      priority: 100
       services:
         - name: argocd-server
           port: 80
     - kind: Rule
-      match: Host(`argocd.rafaelbroseghini.com`) && Header(`Content-Type`, `application/grpc`)
-      priority: 11
+      match: Host(`argocd.rafaelbroseghini.com`) && HeaderRegexp(`Content-Type`, `^application/grpc`)
+      priority: 110
       services:
         - name: argocd-server
           port: 80

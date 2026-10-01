@@ -7,6 +7,8 @@ ArgoCD deployment via Kustomize, vendored from upstream manifests with local pat
 - URL: `https://argocd.rafaelbroseghini.com` (root path on dedicated host)
 - `argocd-cm` `url` must match the public URL for redirects and links
 - `server.insecure: "true"` — TLS terminates at Traefik, not the ArgoCD server pod
+- Traefik priorities in `base/ingress/traefik.yaml` must stay above the dashboard `PathPrefix(/api)` rule: HTTP `100`, gRPC `110` (gRPC stays higher). Helm’s default Traefik dashboard IngressRoute often matches ``PathPrefix(`/dashboard`) || PathPrefix(`/api`)`` with no Host, so its effective priority is the rule length (~48). Lower priorities let that rule steal `/api/v1/...`: the shell loads and the UI hangs. The gRPC match is ``HeaderRegexp(`Content-Type`, `^application/grpc`)`` so grpc-web variants still hit the h2c service.
+- The Traefik dashboard itself is still not GitOps’d. Proper fix later: scope that route with ``Host(`…`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))`` instead of a bare path match.
 
 ## Notable customizations
 
@@ -15,7 +17,7 @@ ArgoCD deployment via Kustomize, vendored from upstream manifests with local pat
 | `base/kustomization.yaml` | Pins image to `v3.6.0-rc1`; dex and notifications controllers are commented out |
 | `base/config/argocd-cm.yaml` | Enables `--enable-helm` for Kustomize builds; defines `accounts.homepage` API key account |
 | `base/config/argocd-cmd-params-cm.yaml` | Insecure server mode (TLS at Traefik) |
-| `base/ingress/traefik.yaml` | Host-based Traefik v3 routes (HTTP + gRPC/h2c) |
+| `base/ingress/traefik.yaml` | Host-based Traefik v3 routes (HTTP priority 100, gRPC/h2c priority 110) |
 
 ## Homepage integration
 
